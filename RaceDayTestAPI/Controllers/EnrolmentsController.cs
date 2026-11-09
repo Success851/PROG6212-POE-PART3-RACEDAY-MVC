@@ -123,5 +123,61 @@ namespace RaceDayTestAPI.Controllers
 
             return NoContent();
         }
+        // GET: api/Events/5/enrolments
+        [HttpGet("/api/events/{eventId}/enrolments")]
+        public async Task<IActionResult> GetEventEnrolments(int eventId)
+        {
+            var organiserID =
+                HttpContext.Session.GetInt32("OrganiserID");
+
+            var role =
+                HttpContext.Session.GetString("Role");
+
+            if (organiserID == null || role != "Organiser")
+                return Unauthorized(
+                    "Please log in as an organiser.");
+
+            // Find the event
+            var eventItem = await _context.Events
+                .FirstOrDefaultAsync(e => e.EventID == eventId);
+
+            if (eventItem == null)
+                return NotFound("Event not found.");
+
+            // Make sure the organiser owns this event
+            if (eventItem.OrganiserID != organiserID.Value)
+                return Forbid(
+                    "You can only view enrolments for your own events.");
+
+            // Retrieve participants enrolled in this event
+            var enrolments = await _context.Enrolments
+                .Include(e => e.Participant)
+                .Include(e => e.Category)
+                .Where(e => e.EventID == eventId)
+                .Select(e => new
+                {
+                    e.EnrolmentID,
+                    e.EnrolmentDate,
+                    e.Status,
+
+                    Participant = new
+                    {
+                        e.Participant.ParticipantID,
+                        e.Participant.FirstName,
+                        e.Participant.LastName,
+                        e.Participant.Email
+                    },
+
+                    Category = new
+                    {
+                        e.Category.CategoryID,
+                        e.Category.CategoryName,
+                        e.Category.CategoryType
+                    }
+                })
+                .ToListAsync();
+
+            return Ok(enrolments);
+        }
     }
 }

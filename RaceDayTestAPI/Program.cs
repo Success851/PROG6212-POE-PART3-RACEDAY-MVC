@@ -52,6 +52,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 // IMPORTANT: Session middleware must run before the controllers.
 app.UseSession();
