@@ -1,0 +1,91 @@
+﻿@model RaceDayMvc.Models.RegisterRequest
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <h2 class="text-center mb-4">Join RaceDay</h2>
+            <p class="text-center text-muted">
+                Create your account to participate in RaceDay events.
+            </p>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">
+                    @ViewBag.Error
+                </div>
+            }
+
+            <form asp-action="Register" method="post">
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="FirstName"
+                           class="form-label">First name</label>
+                    <input asp-for="FirstName"
+                           class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="LastName"
+                           class="form-label">Last name</label>
+                    <input asp-for="LastName"
+                           class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email"
+                           class="form-label">Email address</label>
+                    <input asp-for="Email" type="email"
+                           class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Phone">Phone number</label>
+                    <input type="tel" id="Phone" name="Phone"
+                           class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="DateOfBirth">Date of birth (participants)</label>
+                    <input type="date" id="DateOfBirth" name="DateOfBirth"
+                           class="form-control" />
+                  
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password"
+                           class="form-label">Password</label>
+                    <input asp-for="Password" type="password"
+                           class="form-control" required />
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Role"
+                           class="form-label">Account type</label>
+                    <select asp-for="Role" class="form-select" required>
+                        <option value="">Select account type</option>
+                        <option value="participant">Participant</option>
+                        <option value="organiser">Organiser</option>
+                    </select>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-success w-100">
+                    Create Account
+                </button>
+            </form>
+
+            <p class="text-center mt-3 mb-0">
+                Already registered?
+                <a asp-action="Login">Log in here</a>
+            </p>
+        </div>
+    </div>
+</div>

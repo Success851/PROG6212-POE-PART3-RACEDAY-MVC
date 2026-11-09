@@ -1,0 +1,115 @@
+﻿@model List<RaceDayMvc.Models.ParticipantEnrolmentViewModel>
+
+@{
+    ViewData["Title"] = "My Enrolments";
+}
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>My Event Enrolments</h2>
+
+        <a asp-controller="Events"
+           asp-action="Index"
+           class="btn btn-success">
+            Browse Events
+        </a>
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info">
+            You have not enrolled in any events yet.
+        </div>
+    }
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-success">
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Event Date</th>
+                        <th>Location</th>
+                        <th>Category</th>
+                        <th>Enrolment Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var enrolment in Model)
+                    {
+                        <tr>
+                            <td>@enrolment.Event.EventName</td>
+
+                            <td>
+                                @enrolment.Event.EventDate.ToString("dd MMM yyyy")
+                            </td>
+
+                            <td>@enrolment.Event.Location</td>
+
+                            <td>@enrolment.Category.CategoryName</td>
+
+                            <td>
+                                @enrolment.EnrolmentDate.ToString("dd MMM yyyy")
+                            </td>
+
+                            <td>
+                                @if (enrolment.Status == "Cancelled")
+                                {
+                                    <span class="badge bg-danger">Cancelled</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">@enrolment.Status</span>
+                                }
+                            </td>
+
+                            <td>
+                                @if (enrolment.Status == "Active" || enrolment.Status == "Enrolled")
+                                {
+                                    <form asp-controller="Participant"
+                                          asp-action="CancelEnrolment"
+                                          method="post"
+                                          onsubmit="return confirm('Are you sure you want to cancel this enrolment?');">
+
+                                        <input type="hidden"
+                                               name="enrolmentId"
+                                               value="@enrolment.EnrolmentID" />
+
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            Cancel Enrolment
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Already cancelled</span>
+                                }
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+

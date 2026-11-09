@@ -1,0 +1,82 @@
+﻿@model RaceDayMvc.Models.ParticipantProfileViewModel
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0">My Participant Profile</h3>
+        </div>
+
+        <div class="card-body">
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["Success"]
+                </div>
+            }
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["Error"]
+                </div>
+            }
+
+            <div class="mb-3">
+                <strong>Participant ID:</strong>
+                <span>@Model.ParticipantID</span>
+            </div>
+
+            <div class="mb-3">
+                <strong>First Name:</strong>
+                <span>@Model.FirstName</span>
+            </div>
+
+            <div class="mb-3">
+                <strong>Last Name:</strong>
+                <span>@Model.LastName</span>
+            </div>
+
+            <div class="mb-3">
+                <strong>Email:</strong>
+                <span>@Model.Email</span>
+            </div>
+
+            <div class="mb-3">
+                <strong>Phone:</strong>
+                <span>@Model.Phone</span>
+            </div>
+
+            <div class="mb-3">
+                <strong>Date of Birth:</strong>
+                <span>
+                    @(Model.DateOfBirth.HasValue
+                        ? Model.DateOfBirth.Value.ToString("dd MMMM yyyy")
+                        : "Not provided")
+                </span>
+            </div>
+
+            <div class="mb-3">
+                <strong>Account Created:</strong>
+                <span>@Model.CreatedAt.ToString("dd MMMM yyyy")</span>
+            </div>
+
+            <a asp-controller="Participant"
+               asp-action="EditProfile"
+               class="btn btn-success">
+                Edit Profile
+            </a>
+
+            <a asp-controller="Events"
+               asp-action="Index"
+               class="btn btn-secondary">
+                Back to Events
+            </a>
+        </div>
+    </div>
+</div>
+

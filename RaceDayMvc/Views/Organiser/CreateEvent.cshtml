@@ -1,0 +1,55 @@
+﻿@model RaceDayMvc.Models.CreateEventViewModel
+
+@{
+    ViewData["Title"] = "Create Event";
+}
+
+<div class="container mt-4">
+    <h1>Create RaceDay Event</h1>
+    <p>Enter the details for your new running, walking or cycling event.</p>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <form asp-action="CreateEvent" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label asp-for="EventName" class="form-label">Event Name</label>
+            <input asp-for="EventName" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="EventDate" class="form-label">Event Date</label>
+            <input asp-for="EventDate" type="date" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Location" class="form-label">Location</label>
+            <input asp-for="Location" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Distance" class="form-label">Distance (km)</label>
+            <input asp-for="Distance" type="number" min="1" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="EventType" class="form-label">Event Type</label>
+            <select asp-for="EventType" class="form-select" required>
+                <option value="">Select event type</option>
+                <option value="Run">Running</option>
+                <option value="Walk">Walking</option>
+                <option value="Cycle">Cycling</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Event</button>
+        <a asp-action="Dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </form>
+</div>
+

@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Organiser Dashboard";
+}
+
+<div class="container mt-4">
+
+    <h1>RaceDay Organiser Dashboard</h1>
+
+    <p>Welcome to the organiser dashboard.</p>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <h3>Manage your events</h3>
+
+    <p>Create and manage running, walking and cycling events.</p>
+
+    <a asp-controller="Events"
+       asp-action="Index"
+       class="btn btn-primary">
+        View Events
+    </a>
+
+    <a asp-controller="Organiser"
+       asp-action="CreateEvent"
+       class="btn btn-success">
+        Create Event
+    </a>
+
+    <a asp-controller="Organiser"
+       asp-action="CreateCategory"
+       class="btn btn-info">
+        Create Category
+    </a>
+
+    <form asp-controller="Account"
+          asp-action="Logout"
+          method="post">
+
+        <button type="submit" class="btn btn-danger mt-3">
+            Logout
+        </button>
+
+    </form>
+
+</div>

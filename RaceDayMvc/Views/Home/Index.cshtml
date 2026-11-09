@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center py-5">
+    <h1 class="display-3 fw-bold">Welcome to RaceDay</h1>
+    <p class="lead">
+        Run, walk and cycle towards your goals!
+    </p>
+    <p>
+        Discover events, register for activities and keep track of your race results.
+    </p>
+    <a asp-controller="Account" asp-action="Register"
+       class="btn btn-success btn-lg mt-3">
+        Join RaceDay
+    </a>
+
+</div>
+
+<div class="container pb-5">
+    <div class="row g-4 text-center">
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="~/Images/Running.png"
+                     class="card-img-top"
+                     alt="Running activity"
+                     style="height: 230px; object-fit: cover;" />
+                <div class="card-body">
+                    <h3>Running</h3>
+                    <p>Challenge yourself and reach the finish line.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="~/Images/Walking.png"
+                     class="card-img-top"
+                     alt="Walking activity"
+                     style="height: 230px; object-fit: cover;" />
+                <div class="card-body">
+                    <h3>Walking</h3>
+                    <p>Stay active and enjoy every step of the journey.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="~/Images/Cycling.png"
+                     class="card-img-top"
+                     alt="Cycling activity"
+                     style="height: 230px; object-fit: cover;" />
+                <div class="card-body">
+                    <h3>Cycling</h3>
+                    <p>Explore new challenges and enjoy the ride.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Race Achievement Section -->
+<div class="text-center mt-5 p-4 bg-light rounded shadow-sm">
+    <img src="~/Images/Race_Achievement.png"
+         alt="Race achievement"
+         class="img-fluid rounded mb-3"
+         style="max-height: 300px;" />
+
+    <h2 class="fw-bold">Every Step Counts!</h2>
+    <p class="lead">
+        Set your goals, participate in events and celebrate your achievements with RaceDay.
+    </p>
+</div>
+
+</div>
+</div>

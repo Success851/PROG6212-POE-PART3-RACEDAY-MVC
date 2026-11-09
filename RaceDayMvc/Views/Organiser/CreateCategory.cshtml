@@ -1,0 +1,84 @@
+﻿@model RaceDayMvc.Models.CategoryViewModel
+
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+<div class="container mt-4">
+    <h2>Create Event Category</h2>
+    <p>Event ID: @Model.EventID</p>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <form asp-action="CreateCategory" method="post">
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" asp-for="EventID" />
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="CategoryName" class="form-label">
+                Category Name
+            </label>
+            <input asp-for="CategoryName" class="form-control"
+                   placeholder="e.g. 5 km Run" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="CategoryType" class="form-label">
+                Category Type
+            </label>
+            <select asp-for="CategoryType" class="form-select" required>
+                <option value="Distance">Distance</option>
+                <option value="Age">Age</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="DistanceKm" class="form-label">
+                Distance in kilometres
+            </label>
+            <input asp-for="DistanceKm" type="number"
+                   class="form-control" min="1"
+                   placeholder="e.g. 5" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="MinAge" class="form-label">
+                Minimum Age (for Age categories)
+            </label>
+            <input asp-for="MinAge" type="number"
+                   class="form-control" min="1" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="MaxAge" class="form-label">
+                Maximum Age (for Age categories)
+            </label>
+            <input asp-for="MaxAge" type="number"
+                   class="form-control" min="1" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">
+                Description
+            </label>
+            <textarea asp-for="Description" class="form-control"
+                      rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            Create Category
+        </button>
+
+        <a asp-controller="Events" asp-action="Index"
+           class="btn btn-secondary">Back to Events</a>
+    </form>
+</div>
+

@@ -1,0 +1,100 @@
+﻿@model RaceDayMvc.Models.CreateResultViewModel
+
+@{
+    ViewData["Title"] = "Record Race Result";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h3>Record Race Result</h3>
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                Enter the participant's finishing time,
+                position and result status.
+            </p>
+
+            <div asp-validation-summary="All"
+                 class="text-danger mb-3">
+            </div>
+
+            <form asp-action="RecordResult" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       asp-for="EnrolmentID" />
+
+                <div class="mb-3">
+                    <label asp-for="FinishTime"
+                           class="form-label">
+                        Finishing Time
+                    </label>
+
+                    <input asp-for="FinishTime"
+                           type="time"
+                           step="1"
+                           class="form-control" />
+
+                    <span asp-validation-for="FinishTime"
+                          class="text-danger">
+                    </span>
+
+                    <small class="text-muted">
+                        Enter the time in hours, minutes and seconds.
+                    </small>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Position"
+                           class="form-label">
+                        Finishing Position
+                    </label>
+
+                    <input asp-for="Position"
+                           type="number"
+                           min="1"
+                           class="form-control"
+                           placeholder="Example: 1" />
+
+                    <span asp-validation-for="Position"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ResultStatus"
+                           class="form-label">
+                        Result Status
+                    </label>
+
+                    <select asp-for="ResultStatus"
+                            class="form-select">
+                        <option value="Completed">Completed</option>
+                        <option value="Did Not Finish">Did Not Finish</option>
+                        <option value="Disqualified">Disqualified</option>
+                    </select>
+
+                    <span asp-validation-for="ResultStatus"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-success">
+                    Save Result
+                </button>
+
+                <a asp-action="Dashboard"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </form>
+        </div>
+    </div>
+</div>
+

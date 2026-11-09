@@ -1,0 +1,60 @@
+﻿@model List<RaceDayMvc.Models.ParticipantResult>
+
+<h2 class="mb-4">My Race Results</h2>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+@if (Model == null || Model.Count == 0)
+{
+    <div class="alert alert-info">
+        You do not have any results available yet.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Category</th>
+                    <th>Finish Time</th>
+                    <th>Position</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var result in Model)
+                {
+                    <tr>
+                        <td>@result.Event.EventName</td>
+                        <td>@result.Event.EventDate.ToShortDateString()</td>
+                        <td>@result.Event.Location</td>
+                        <td>@result.Category.CategoryName</td>
+                        <td>
+                            @(result.FinishTime.HasValue
+                                                ? result.FinishTime.Value.ToString(@"hh\:mm\:ss")
+                                                : "Not recorded")
+                                                             </td>
+                                                             <td>
+                            @(result.Position.HasValue
+                                                ? result.Position.Value.ToString()
+                                                : "—")
+                </td>
+                <td>@result.ResultStatus</td>
+            </tr>
+                        }
+            </tbody>
+        </table>
+    </div>
+}
+
+
